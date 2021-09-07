@@ -2,8 +2,8 @@ import { getCustomRepository } from 'typeorm'
 
 import AppError from '@shared/errors/AppError'
 import redisCache from '@shared/cache/RedisCache'
-import ProductsRepository from '@modules/products/typeorm/repositories/ProductsRepository'
-import Product from '@modules/products/typeorm/entities/Product'
+import ProductsRepository from '@modules/products/infra/typeorm/repositories/ProductsRepository'
+import Product from '@modules/products/infra/typeorm/entities/Product'
 
 interface IRequest {
   name: string

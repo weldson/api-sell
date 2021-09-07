@@ -1,8 +1,8 @@
 import { getCustomRepository } from 'typeorm'
 
 import AppError from '@shared/errors/AppError'
-import Product from '@modules/products/typeorm/entities/Product'
-import ProductsRepository from '@modules/products/typeorm/repositories/ProductsRepository'
+import Product from '@modules/products/infra/typeorm/entities/Product'
+import ProductsRepository from '@modules/products/infra/typeorm/repositories/ProductsRepository'
 
 
 interface IRequest {
