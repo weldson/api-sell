@@ -1,9 +1,9 @@
 import { EntityRepository, Repository } from 'typeorm'
-import UserTokens from '../entities/UserToken'
+import UserToken from '../entities/UserToken'
 
-@EntityRepository(UserTokens)
-class UserTokensRepository extends Repository<UserTokens> {
-  public async findById(id: string): Promise<UserTokens | undefined> {
+@EntityRepository(UserToken)
+class UserTokensRepository extends Repository<UserToken> {
+  public async findById(id: string): Promise<UserToken | undefined> {
     const userToken = await this.findOne({
       where: {
         id
@@ -13,7 +13,7 @@ class UserTokensRepository extends Repository<UserTokens> {
     return userToken
   }
 
-  public async findByToken(token: string): Promise<UserTokens | undefined> {
+  public async findByToken(token: string): Promise<UserToken | undefined> {
     const userToken = await this.findOne({
       where: {
         token
@@ -23,7 +23,7 @@ class UserTokensRepository extends Repository<UserTokens> {
     return userToken
   }
 
-  public async generate(user_id: string): Promise<UserTokens> {
+  public async generate(user_id: string): Promise<UserToken> {
     const userToken = this.create({
       user_id
     })
