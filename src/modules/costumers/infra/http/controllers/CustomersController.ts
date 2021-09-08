@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { container } from 'tsyringe'
 
 import ListCustomerService from '../../../services/ListCustomerSerice'
 import ShowCustomerService from '../../../services/ShowCustomerService'
@@ -9,7 +10,7 @@ import DeleteCustomerService from '../../../services/DeleteCustomerService'
 
 class CustomersController {
   public async list(request: Request, response: Response): Promise<Response> {
-    const listCustomers = new ListCustomerService()
+    const listCustomers = container.resolve(ListCustomerService)
 
     const customers = await listCustomers.execute()
 
@@ -19,7 +20,7 @@ class CustomersController {
   public async show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params
 
-    const showCustomer = new ShowCustomerService()
+    const showCustomer = container.resolve(ShowCustomerService)
 
     const customer = await showCustomer.execute({ id })
 
@@ -29,7 +30,7 @@ class CustomersController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, email } = request.body
 
-    const createCustomer = new CreateCustomerService()
+    const createCustomer = container.resolve(CreateCustomerService)
 
     const customer = await createCustomer.execute({
       name,
@@ -43,7 +44,7 @@ class CustomersController {
     const { id } = request.params
     const { name, email } = request.body
 
-    const updateCustomer = new UpdateCustomerService()
+    const updateCustomer = container.resolve(UpdateCustomerService)
 
     const customer = await updateCustomer.execute({ id, name, email })
 
@@ -53,7 +54,7 @@ class CustomersController {
   public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params
 
-    const deleteCustomer = new DeleteCustomerService()
+    const deleteCustomer = container.resolve(DeleteCustomerService)
 
     await deleteCustomer.execute({ id })
 
