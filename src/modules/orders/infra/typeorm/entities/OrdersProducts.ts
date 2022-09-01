@@ -5,43 +5,42 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn
-} from 'typeorm'
+  UpdateDateColumn,
+} from 'typeorm';
 
-import Order from './Order'
-import Product from '@modules/products/infra/typeorm/entities/Product'
-
+import Order from './Order';
+import Product from '@modules/products/infra/typeorm/entities/Product';
 
 @Entity('orders_products')
 class OrdersProducts {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+  id: string;
 
   @ManyToOne(() => Order, order => order.order_products)
   @JoinColumn({ name: 'order_id' })
-  order: Order
+  order: Order;
 
   @ManyToOne(() => Product, product => product.order_products)
   @JoinColumn({ name: 'product_id' })
-  product: Product
+  product: Product;
 
   @Column()
-  order_id: string
+  order_id: string;
 
   @Column()
-  product_id: string
+  product_id: string;
 
   @Column('decimal')
-  price: number
+  price: number;
 
   @Column('int')
-  quantity: number
+  quantity: number;
 
   @CreateDateColumn()
-  created_at: string
+  created_at: string;
 
   @UpdateDateColumn()
-  updated_at: string
+  updated_at: string;
 }
 
-export default OrdersProducts
+export default OrdersProducts;

@@ -1,33 +1,34 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import { celebrate, Joi, Segments } from 'celebrate'
+import { celebrate, Joi, Segments } from 'celebrate';
 
-import OrdersController from '../controllers/OrdersController'
-import isAuthenticated from '@shared/infra/http/middlewares/isAuthenticated'
+import OrdersController from '../controllers/OrdersController';
+import isAuthenticated from '@shared/infra/http/middlewares/isAuthenticated';
 
-const ordersRouter = Router()
-const ordersController = new OrdersController()
+const ordersRouter = Router();
+const ordersController = new OrdersController();
 
-ordersRouter.use(isAuthenticated)
+ordersRouter.use(isAuthenticated);
 
 ordersRouter.get(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
-      id: Joi.string().uuid().required()
-    }
+      id: Joi.string().uuid().required(),
+    },
   }),
-  ordersController.show)
+  ordersController.show,
+);
 
 ordersRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
       customer_id: Joi.string().uuid().required(),
-      products: Joi.required()
-    }
+      products: Joi.required(),
+    },
   }),
-  ordersController.create
-)
+  ordersController.create,
+);
 
-export default ordersRouter
+export default ordersRouter;

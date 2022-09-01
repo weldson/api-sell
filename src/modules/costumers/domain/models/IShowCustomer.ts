@@ -1,3 +1,3 @@
 export interface IShowCustomer {
-  id: string
-}
+  id: string;
+};

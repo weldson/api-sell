@@ -22,6 +22,7 @@
     "@types/node": "^16.6.1",
     "@types/nodemailer": "^6.4.4",
     "@types/redis": "^2.8.31",
+    "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
     "eslint": "^7.32.0",
@@ -54,6 +55,7 @@
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.6.0",
     "typeorm": "^0.2.37",
-    "typeorm-pagination": "^2.0.3"
+    "typeorm-pagination": "^2.0.3",
+    "uuid": "^8.3.2"
   }
 }

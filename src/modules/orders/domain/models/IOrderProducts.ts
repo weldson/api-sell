@@ -1,4 +1,3 @@
 export interface IOrderProducts {
-  id: string
-
+  id: string;
 }
