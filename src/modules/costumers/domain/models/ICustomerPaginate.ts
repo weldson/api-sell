@@ -9,4 +9,4 @@ export interface ICustomerPaginate {
   prev_page: number | null;
   next_page: number | null;
   data: ICustomer[];
-};
+}

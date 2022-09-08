@@ -1,19 +1,19 @@
-import { Request, Response } from 'express'
-import { classToClass } from 'class-transformer'
+import { Request, Response } from 'express';
+import { classToClass } from 'class-transformer';
 
-import UpdateUserAvatarService from '../../../services/UpdateUserAvatarService'
+import UpdateUserAvatarService from '../../../services/UpdateUserAvatarService';
 
 class UserAvatarController {
   public async update(request: Request, response: Response): Promise<Response> {
-    const updateAvatar = new UpdateUserAvatarService()
+    const updateAvatar = new UpdateUserAvatarService();
 
     const user = updateAvatar.execute({
       userId: request.user.id,
-      avatarFilename: request.file?.filename as string
-    })
+      avatarFilename: request.file?.filename as string,
+    });
 
-    return response.json(classToClass(user))
+    return response.json(classToClass(user));
   }
 }
 
-export default UserAvatarController
+export default UserAvatarController;

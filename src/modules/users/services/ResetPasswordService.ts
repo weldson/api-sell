@@ -1,44 +1,44 @@
-import AppError from '@shared/errors/AppError'
-import { getCustomRepository } from 'typeorm'
-import { isAfter, addHours } from 'date-fns'
+import AppError from '@shared/errors/AppError';
+import { getCustomRepository } from 'typeorm';
+import { isAfter, addHours } from 'date-fns';
 
-import UsersRepository from '../infra/typeorm/repositories/UsersRepository'
-import UserTokensRepository from '../infra/typeorm/repositories/UserTokensRepository'
-import User from '../infra/typeorm/entities/User'
-import { hashSync } from 'bcryptjs'
+import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
+import UserTokensRepository from '../infra/typeorm/repositories/UserTokensRepository';
+import User from '../infra/typeorm/entities/User';
+import { hashSync } from 'bcryptjs';
 
 interface IRequest {
-  token: string
-  password: string
+  token: string;
+  password: string;
 }
 
 class ResetPasswordService {
   public async execute({ token, password }: IRequest): Promise<void> {
-    const usersRepository = getCustomRepository(UsersRepository)
-    const userTokensRepository = getCustomRepository(UserTokensRepository)
+    const usersRepository = getCustomRepository(UsersRepository);
+    const userTokensRepository = getCustomRepository(UserTokensRepository);
 
-    const userToken = await userTokensRepository.findByToken(token)
+    const userToken = await userTokensRepository.findByToken(token);
 
     if (!userToken) {
-      throw new AppError('User Token does not exists.')
+      throw new AppError('User Token does not exists.');
     }
 
-    const user = await usersRepository.findById(userToken.user_id)
+    const user = await usersRepository.findById(userToken.user_id);
 
     if (!user) {
-      throw new AppError('User does not exists.')
+      throw new AppError('User does not exists.');
     }
 
-    const compareDate = addHours(userToken.created_at, 2)
+    const compareDate = addHours(userToken.created_at, 2);
 
     if (isAfter(Date.now(), compareDate)) {
-      throw new AppError('Token expired.')
+      throw new AppError('Token expired.');
     }
 
-    user.password = hashSync(password, 8)
+    user.password = hashSync(password, 8);
 
-    await usersRepository.save(user)
+    await usersRepository.save(user);
   }
 }
 
-export default ResetPasswordService
+export default ResetPasswordService;

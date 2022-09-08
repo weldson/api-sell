@@ -6,13 +6,12 @@ import { ICustomerPaginate } from '../../models/ICustomerPaginate';
 import Customer from '@modules/costumers/infra/typeorm/entities/Customer';
 import { ICreateCustomer } from '../../models/ICreateCustomer';
 
-class FakeCustomersRepository
-  implements ICustomersRepository {
+class FakeCustomersRepository implements ICustomersRepository {
   private customers: Customer[] = [];
   private customersPaginate: Customer[] = [];
 
   public async findAll(): Promise<ICustomer[] | undefined> {
-    return this.customers
+    return this.customers;
   }
 
   public async findAllPaginate(): Promise<ICustomerPaginate> {
@@ -21,46 +20,44 @@ class FakeCustomersRepository
 
   public async save(customer: ICustomer): Promise<Customer> {
     const findIndex = this.customers.findIndex(
-      findCustomer => findCustomer.id === customer.id
-    )
+      findCustomer => findCustomer.id === customer.id,
+    );
 
-    this.customers[findIndex] = customer
+    this.customers[findIndex] = customer;
 
-    return customer
+    return customer;
   }
 
   public async create({ name, email }: ICreateCustomer): Promise<Customer> {
-    const customer = new Customer()
+    const customer = new Customer();
 
-    customer.id = uuidv4()
-    customer.name = name
-    customer.email = email
-    customer.created_at = new Date()
-    customer.updated_at = new Date()
+    customer.id = uuidv4();
+    customer.name = name;
+    customer.email = email;
+    customer.created_at = new Date();
+    customer.updated_at = new Date();
 
-    this.customers.push(customer)
+    this.customers.push(customer);
 
-    return customer
+    return customer;
   }
 
-  public async remove(customer: ICustomer): Promise<void> {
-
-  }
+  public async remove(customer: ICustomer): Promise<void> {}
 
   public async findById(id: string): Promise<Customer | undefined> {
-    const customer = this.customers.find(customer => customer.id === id)
-    return customer
+    const customer = this.customers.find(customer => customer.id === id);
+    return customer;
   }
 
   public async findByEmail(email: string): Promise<Customer | undefined> {
-    const customer = this.customers.find(customer => customer.email === email)
-    return customer
+    const customer = this.customers.find(customer => customer.email === email);
+    return customer;
   }
 
   public async findByName(name: string): Promise<Customer | undefined> {
-    const customer = this.customers.find(customer => customer.name === name)
-    return customer
+    const customer = this.customers.find(customer => customer.name === name);
+    return customer;
   }
 }
 
-export default FakeCustomersRepository
+export default FakeCustomersRepository;

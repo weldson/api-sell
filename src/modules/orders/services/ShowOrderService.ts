@@ -1,25 +1,25 @@
-import { getCustomRepository } from 'typeorm'
+import { getCustomRepository } from 'typeorm';
 
-import AppError from '@shared/errors/AppError'
-import OrdersRepository from '../infra/typeorm/repositories/OrdersRepository'
-import Order from '../infra/typeorm/entities/Order'
+import AppError from '@shared/errors/AppError';
+import OrdersRepository from '../infra/typeorm/repositories/OrdersRepository';
+import Order from '../infra/typeorm/entities/Order';
 
 interface IRequest {
-  id: string
+  id: string;
 }
 
 class ShowOrderService {
   public async execute({ id }: IRequest): Promise<Order> {
-    const ordersRepository = getCustomRepository(OrdersRepository)
+    const ordersRepository = getCustomRepository(OrdersRepository);
 
-    const order = await ordersRepository.findById(id)
+    const order = await ordersRepository.findById(id);
 
     if (!order) {
-      throw new AppError('Order not found.')
+      throw new AppError('Order not found.');
     }
 
-    return order
+    return order;
   }
 }
 
-export default ShowOrderService
+export default ShowOrderService;

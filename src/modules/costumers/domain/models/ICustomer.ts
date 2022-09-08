@@ -4,4 +4,4 @@ export interface ICustomer {
   email: string;
   created_at: Date;
   updated_at: Date;
-};
+}

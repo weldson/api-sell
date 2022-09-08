@@ -1,16 +1,16 @@
-import { Request, Response } from 'express'
-import ResetPasswordEmailService from '../../../services/ResetPasswordService'
+import { Request, Response } from 'express';
+import ResetPasswordEmailService from '../../../services/ResetPasswordService';
 
 class ResetPasswordController {
   public async create(request: Request, response: Response) {
-    const { token, password } = request.body
+    const { token, password } = request.body;
 
-    const resetPassword = new ResetPasswordEmailService()
+    const resetPassword = new ResetPasswordEmailService();
 
-    await resetPassword.execute({ token, password })
+    await resetPassword.execute({ token, password });
 
-    return response.status(204).json()
+    return response.status(204).json();
   }
 }
 
-export default ResetPasswordController
+export default ResetPasswordController;

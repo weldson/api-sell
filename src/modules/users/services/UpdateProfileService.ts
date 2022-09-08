@@ -1,16 +1,16 @@
-import { getCustomRepository } from 'typeorm'
+import { getCustomRepository } from 'typeorm';
 
-import AppError from '@shared/errors/AppError'
-import User from '../infra/typeorm/entities/User'
-import UsersRepository from '../infra/typeorm/repositories/UsersRepository'
-import { compareSync, hashSync } from 'bcryptjs'
+import AppError from '@shared/errors/AppError';
+import User from '../infra/typeorm/entities/User';
+import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
+import { compareSync, hashSync } from 'bcryptjs';
 
 interface IRequest {
-  userId: string
-  name: string,
-  email: string
-  password?: string
-  old_password?: string
+  userId: string;
+  name: string;
+  email: string;
+  password?: string;
+  old_password?: string;
 }
 
 class UpdateProfileService {
@@ -19,43 +19,43 @@ class UpdateProfileService {
     name,
     email,
     password,
-    old_password
+    old_password,
   }: IRequest): Promise<User> {
-    const usersRepository = getCustomRepository(UsersRepository)
+    const usersRepository = getCustomRepository(UsersRepository);
 
-    const user = await usersRepository.findById(userId)
+    const user = await usersRepository.findById(userId);
 
     if (!user) {
-      throw new AppError('User does not exists.')
+      throw new AppError('User does not exists.');
     }
 
-    const userUpdateEmail = await usersRepository.findByEmail(email)
+    const userUpdateEmail = await usersRepository.findByEmail(email);
 
     if (userUpdateEmail && userUpdateEmail.id !== userId) {
-      throw new AppError('Email already in use.')
+      throw new AppError('Email already in use.');
     }
 
     if (password && !old_password) {
-      throw new AppError('Old password is required.')
+      throw new AppError('Old password is required.');
     }
 
     if (password && old_password) {
-      const checkOldPassword = compareSync(old_password, user.password)
+      const checkOldPassword = compareSync(old_password, user.password);
 
       if (!checkOldPassword) {
-        throw new AppError('Old password does not match.')
+        throw new AppError('Old password does not match.');
       }
 
-      user.password = hashSync(password, 8)
+      user.password = hashSync(password, 8);
     }
 
-    user.name = name
-    user.email = email
+    user.name = name;
+    user.email = email;
 
-    await usersRepository.save(user)
+    await usersRepository.save(user);
 
-    return user
+    return user;
   }
 }
 
-export default UpdateProfileService
+export default UpdateProfileService;

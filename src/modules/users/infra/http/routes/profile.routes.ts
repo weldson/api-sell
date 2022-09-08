@@ -1,14 +1,14 @@
-import { Router } from 'express'
-import { celebrate, Joi, Segments } from 'celebrate'
+import { Router } from 'express';
+import { celebrate, Joi, Segments } from 'celebrate';
 
-import isAuthenticated from '@shared/infra/http/middlewares/isAuthenticated'
+import isAuthenticated from '@shared/infra/http/middlewares/isAuthenticated';
 
-import ProfileController from '../controllers/ProfileController'
+import ProfileController from '../controllers/ProfileController';
 
-const profileRouter = Router()
-const profileController = new ProfileController()
+const profileRouter = Router();
+const profileController = new ProfileController();
 
-profileRouter.get('/', isAuthenticated, profileController.show)
+profileRouter.get('/', isAuthenticated, profileController.show);
 profileRouter.put(
   '/',
   isAuthenticated,
@@ -22,11 +22,11 @@ profileRouter.put(
         .valid(Joi.ref('password'))
         .when('password', {
           is: Joi.exist(),
-          then: Joi.required()
-        })
-    }
+          then: Joi.required(),
+        }),
+    },
   }),
-  profileController.update
-)
+  profileController.update,
+);
 
-export default profileRouter
+export default profileRouter;

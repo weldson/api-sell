@@ -31,22 +31,22 @@ class CustomersRepository implements ICustomersRepository {
   }
 
   public async create({ name, email }: ICreateCustomer): Promise<Customer> {
-    const customer = this.ormRepository.create({name, email});
+    const customer = this.ormRepository.create({ name, email });
 
     await this.ormRepository.save(customer);
 
     return customer;
   }
 
-   public async remove(customer: ICustomer): Promise<void> {
-    await this.ormRepository.remove(customer)
+  public async remove(customer: ICustomer): Promise<void> {
+    await this.ormRepository.remove(customer);
   }
 
   public async findById(id: string): Promise<Customer | undefined> {
     const customer = await this.ormRepository.findOne({
       where: {
-        id
-      }
+        id,
+      },
     });
 
     return customer;
@@ -55,8 +55,8 @@ class CustomersRepository implements ICustomersRepository {
   public async findByEmail(email: string): Promise<Customer | undefined> {
     const customer = await this.ormRepository.findOne({
       where: {
-        email
-      }
+        email,
+      },
     });
 
     return customer;
@@ -65,8 +65,8 @@ class CustomersRepository implements ICustomersRepository {
   public async findByName(name: string): Promise<Customer | undefined> {
     const customer = await this.ormRepository.findOne({
       where: {
-        name
-      }
+        name,
+      },
     });
 
     return customer;
